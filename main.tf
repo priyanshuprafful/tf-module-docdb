@@ -9,6 +9,7 @@ resource "aws_docdb_cluster" "cluster" {
   skip_final_snapshot     = var.skip_final_snapshot
   db_subnet_group_name    = aws_docdb_subnet_group.subnet_group.name
   kms_key_id              = data.aws_kms_key.key.arn
+  storage_encrypted       = var.storage_encrypted
 }
 
 resource "aws_docdb_subnet_group" "subnet_group" {
