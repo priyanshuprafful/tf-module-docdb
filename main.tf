@@ -11,7 +11,12 @@ resource "aws_docdb_cluster" "cluster" {
   kms_key_id              = data.aws_kms_key.key.arn
   storage_encrypted       = var.storage_encrypted
 }
-
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count = var.no_of_instances
+  identifier = "${var.env}-docdb-${count.index}"
+  cluster_identifier = aws_docdb_cluster.cluster.id
+  instance_class     = var.instance_class
+}
 resource "aws_docdb_subnet_group" "subnet_group" {
   name = "${var.env}-docdb"
   subnet_ids = var.subnet_ids
