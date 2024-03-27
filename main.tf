@@ -25,3 +25,35 @@ resource "aws_docdb_subnet_group" "subnet_group" {
     { Name = "${var.env}-subnet-group"}
   )
 }
+
+resource "aws_ssm_parameter" "docdb_url_catalogue" {
+  name = "${var.env}.docdb.catalogue"
+  type = "String"
+  value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}dev-docdb.cluster-cz088q6s4fqq.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+}
+
+resource "aws_ssm_parameter" "docdb_url_users" {
+  name = "${var.env}.docdb.users"
+  type = "String"
+  value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}dev-docdb.cluster-cz088q6s4fqq.us-east-1.docdb.amazonaws.com:27017/users?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+}
+
+
+
+
+resource "aws_ssm_parameter" "docdb_endpoint" {
+  name = "${var.env}.docdb.endpoint"
+  type = "String"
+  value = aws_docdb_cluster.cluster.endpoint
+}
+
+resource "aws_ssm_parameter" "docdb_user" {
+  name = "${var.env}.docdb.user"
+  type = "String"
+  value = data.aws_ssm_parameter.user.value
+}
+resource "aws_ssm_parameter" "docdb_password" {
+  name = "${var.env}.docdb.password"
+  type = "String"
+  value = data.aws_ssm_parameter.pass.value
+}
