@@ -47,13 +47,15 @@ resource "aws_ssm_parameter" "docdb_endpoint" {
   value = aws_docdb_cluster.cluster.endpoint
 }
 
-resource "aws_ssm_parameter" "docdb_user" {
-  name = "${var.env}.docdb.user"
-  type = "String"
-  value = data.aws_ssm_parameter.user.value
-}
-resource "aws_ssm_parameter" "docdb_password" {
-  name = "${var.env}.docdb.password"
-  type = "String"
-  value = data.aws_ssm_parameter.pass.value
-}
+#resource "aws_ssm_parameter" "docdb_user" {
+#  name = "${var.env}.docdb.user"
+#  type = "String"
+#  value = data.aws_ssm_parameter.user.value
+#}
+#resource "aws_ssm_parameter" "docdb_pass" {
+#  name = "${var.env}.docdb.password"
+#  type = "String"
+#  value = data.aws_ssm_parameter.pass.value
+#}
+
+# the above two already exist
